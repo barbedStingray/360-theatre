@@ -1,38 +1,87 @@
-.App {
-  text-align: center;
+*,
+*:after,
+*:before {
+  margin: 0;
+  padding: 0;
+	box-sizing: border-box;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+:root {
+  --background-color: #2f2f2f;
+  /* CLAMP (min, preferred, max) */
+  --size: clamp(200px, 40vmin, 50rem);
+  --size-content-3: 100vw;
+  --size-4: 15px;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+body {
+  border: 2px solid white;
+  background-color: var(--background-color);
+	display: flex;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
+  align-items: center;
+	min-height: 100vh;
+}
+
+.track-wrapper {
+  /* border: 2px solid yellow; */
+  margin: 5%;
+  max-inline-size: var(--size-content-3);
+	/* overflow: hidden; */
+
+/* SHADOWING ON THE EDGES */
+	-webkit-mask: linear-gradient(90deg,
+								transparent 0,
+								black 15% 85%,
+								transparent
+							) 0 50% / 100% calc(100% - (2 * var(--size-4))) no-repeat,
+							linear-gradient(0deg, black, black) 50% 0 / 100% var(--size-4) no-repeat,
+							linear-gradient(0deg, black, black) 50% 100% / 100% var(--size-4) no-repeat;
+}
+
+img {
+  /* border: 2px solid blue; */
+	height: 100%;
+	width: 100%;
+}
+
+.track {
+  border-top: 2px solid white;
+  border-bottom: 2px solid white;
+	height: var(--size);
+	width: 100%;
+	display: flex;
+	overflow: overlay;
+	gap: var(--size-4);
+	list-style-type: none;
+	padding: var(--size-4) 10%;
+
+  /* paired with the scroll-snap-align */
+	scroll-snap-type: x mandatory;
+  
+  /* MASK GIVES THE APPEARANCE OF DEPTH AND 360 */
+	-webkit-mask: radial-gradient(#0000 0 30%, #000 30.5%) 50% calc(var(--size) * 0.5) / 300% 100%,
+								linear-gradient(0deg, black, black) 50% 0 / 100% var(--size-4) no-repeat,
+								linear-gradient(0deg, black, black) 50% 100% / 100% var(--size-4) no-repeat;
+
+  /* Hide Scrollbar */
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+/* Hide Scrollbar */
+.track::-webkit-scrollbar {
+  display: none;  /* Chrome, Safari, Opera */
+}
+
+.track__item {
+  /* border: 2px solid greenyellow; */
+	height: 100%;
+	aspect-ratio: 1; /* keeps photos at size */
+	scroll-snap-align: center;
+}
+
+h1 {
+  text-align: center;
   color: white;
 }
 
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
